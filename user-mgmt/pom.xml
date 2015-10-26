@@ -38,6 +38,13 @@
             <scope>test</scope>
         </dependency>
 
+        <!-- Apache Shiro for Security -->
+        <dependency>
+            <groupId>org.apache.shiro</groupId>
+            <artifactId>shiro-core</artifactId>
+            <version>${shiro.version}</version>
+        </dependency>
+
         <!-- Hibernate
         <dependency>
             <groupId>org.hibernate</groupId>
