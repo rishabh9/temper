@@ -4,10 +4,12 @@ import in.notwork.temper.user.db.dao.iface.UserDao;
 import in.notwork.temper.user.service.iface.UpdateUserService;
 import in.notwork.temper.user.service.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  * @author rishabh.
  */
+@Service("updateUserService")
 public class UpdateUserServiceImpl implements UpdateUserService {
 
     @Autowired
