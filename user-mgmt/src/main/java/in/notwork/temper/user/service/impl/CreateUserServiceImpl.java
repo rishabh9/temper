@@ -3,6 +3,7 @@ package in.notwork.temper.user.service.impl;
 import in.notwork.temper.user.db.dao.iface.UserDao;
 import in.notwork.temper.user.service.iface.CreateUserService;
 import in.notwork.temper.user.service.model.User;
+import in.notwork.temper.user.service.utilities.UserServiceUtility;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

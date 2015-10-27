@@ -18,7 +18,7 @@ import java.util.ResourceBundle;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(
         locations = {
-                "classpath:/applicationContext-resources.xml",
+                "classpath:/applicationContext-security.xml",
                 "classpath:/applicationContext-dao.xml",
                 "classpath*:/applicationContext.xml",
                 "classpath:**/applicationContext*.xml"})

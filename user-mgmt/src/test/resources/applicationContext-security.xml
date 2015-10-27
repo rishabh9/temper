@@ -10,8 +10,18 @@
         <property name="dataSource" ref="dataSource" />
         <property name="saltStyle" value="COLUMN" />
         <property name="authenticationQuery" value="select password, salt from user where username = ?" />
-        <property name="userRolesQuery" value="" />
-        <property name="permissionsQuery" value="" />
+        <property name="userRolesQuery" value="select r.name from user u
+                                               inner join user_has_role uhr
+                                               on u.id = uhr.user_id
+                                               inner join role r
+                                               on uhr.role_id = r.id
+                                               where username = ?"/>
+        <property name="permissionsQuery" value="select p.name from privilege p
+                                                 inner join role_has_privilege rhp
+                                                 on rhp.privilege_id = p.id
+                                                 inner join role r
+                                                 on r.id = rhp.role_id
+                                                 where r.name = ?"/>
         <property name="permissionsLookupEnabled" value="true" />
     </bean>
 

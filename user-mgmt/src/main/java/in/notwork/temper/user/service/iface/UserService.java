@@ -2,8 +2,6 @@ package in.notwork.temper.user.service.iface;
 
 import in.notwork.temper.user.service.model.User;
 
-import java.util.UUID;
-
 /**
  * This service is used to perform all types of retrievals for a user.
  *
@@ -11,5 +9,11 @@ import java.util.UUID;
  */
 public interface UserService {
 
-    User get(UUID uuid);
+    /**
+     * Find user by username
+     *
+     * @param username username of the user.
+     * @return User.
+     */
+    User findUserWithUsername(String username);
 }

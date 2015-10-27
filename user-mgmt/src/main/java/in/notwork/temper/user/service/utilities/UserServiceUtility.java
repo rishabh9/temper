@@ -1,4 +1,4 @@
-package in.notwork.temper.user.service.impl;
+package in.notwork.temper.user.service.utilities;
 
 import in.notwork.temper.user.service.model.User;
 import org.apache.shiro.crypto.RandomNumberGenerator;
