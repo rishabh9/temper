@@ -3,8 +3,6 @@ package in.notwork.temper.user.service.impl;
 import in.notwork.temper.user.db.dao.iface.UserDao;
 import in.notwork.temper.user.service.iface.CreateUserService;
 import in.notwork.temper.user.service.model.User;
-import org.apache.shiro.crypto.RandomNumberGenerator;
-import org.apache.shiro.crypto.hash.Sha256Hash;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,42 +13,29 @@ import org.springframework.stereotype.Service;
 public class CreateUserServiceImpl implements CreateUserService {
 
     @Autowired
-    private RandomNumberGenerator randomNumberGenerator;
-
-    @Autowired
     private UserDao userDao;
 
-    public User create(User user) {
+    @Autowired
+    private UserServiceUtility userUtility;
 
-        String plainTextPassword = user.getPassword();
+    /**
+     * {@inheritDoc}
+     */
+    public User create(final User user) {
 
-        // We'll use a Random Number Generator to generate salts.
-        Object salt = randomNumberGenerator.nextBytes();
+        in.notwork.temper.user.db.dbo.objects.User userDbo = userUtility.encryptToDBO(user);
 
-        // Now hash the plain-text password with the random salt and multiple
-        // iterations and then Base64-encode the value (requires less space than Hex)
-        String hashedPasswordBase64 = new Sha256Hash(plainTextPassword, salt, 1024).toBase64();
-
-        in.notwork.temper.user.db.dbo.objects.User userDbo = new in.notwork.temper.user.db.dbo.objects.User();
-
-        // Copy the credentials
-        userDbo.setUsername(user.getUsername());
-        userDbo.setPassword(hashedPasswordBase64);
-
-        // Enable the account on creation.
-        userDbo.setAccountLocked(false);
+        // Enable the account on creation, by default.
         userDbo.setCredentialsExpired(false);
-        userDbo.setAccountExpired(false);
         userDbo.setAccountEnabled(true);
 
         // Create user.
         userDbo = userDao.create(userDbo);
 
-        // Blank out the password
-        user.setPassword("");
         // Assign the UUID created for the new user.
         user.setUuid(userDbo.getUuid());
 
         return user;
     }
+
 }
