@@ -91,7 +91,7 @@ public class GenericDaoImpl<T, PK extends Serializable> implements GenericDao<T,
         this.sessionFactory = sessionFactory;
     }
 
-    private Session getSession() {
+    protected Session getSession() {
         Session session = sessionFactory.getCurrentSession();
         if (session == null) {
             session = sessionFactory.openSession();
@@ -263,11 +263,11 @@ public class GenericDaoImpl<T, PK extends Serializable> implements GenericDao<T,
         return criteria.list();
     }
 
-    private boolean isEntityArchivable() {
+    protected boolean isEntityArchivable() {
         return Archivable.class.isAssignableFrom(this.persistentClass);
     }
 
-    private boolean isEntityAuditable() {
+    protected boolean isEntityAuditable() {
         return Auditable.class.isAssignableFrom(this.persistentClass);
     }
 }
