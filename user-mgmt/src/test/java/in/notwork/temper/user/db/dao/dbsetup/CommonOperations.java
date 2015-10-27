@@ -66,22 +66,21 @@ public class CommonOperations {
                     .build(),
             insertInto("user")
                     .columns(
-                            "id", "username", "password",
-                            "account_expired", "account_locked",
+                            "id", "username", "password", "salt",
                             "credentials_expired", "account_enabled",
                             "create_time", "modified_time", "modified_by",
                             "is_archived", "uuid"
                     )
                     .values(
-                            1, "admin1", "password1",
-                            false, false, false, true,
+                            1, "admin1", "password1", "salt".getBytes(),
+                            false, true,
                             new Date(System.currentTimeMillis()),
                             new Date(System.currentTimeMillis()),
                             "db-unit-tests", false, UUID.randomUUID().toString()
                     )
                     .values(
-                            2, "admin2", "password2",
-                            false, false, false, true,
+                            2, "admin2", "password2", "salt".getBytes(),
+                            false, true,
                             new Date(System.currentTimeMillis()),
                             new Date(System.currentTimeMillis()),
                             "db-unit-tests", true, UUID.randomUUID().toString()

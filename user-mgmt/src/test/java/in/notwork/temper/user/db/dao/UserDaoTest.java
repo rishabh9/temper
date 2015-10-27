@@ -122,9 +122,8 @@ public class UserDaoTest extends BaseDaoTest {
         User user = new User();
         user.setUsername("username3");
         user.setPassword("password3");
+        user.setSalt("salt".getBytes());
         user.setAccountEnabled(true);
-        user.setAccountExpired(false);
-        user.setAccountLocked(false);
         user.setCredentialsExpired(false);
         user.setArchived(false);
         user.setUuid(UUID.randomUUID());
@@ -140,9 +139,8 @@ public class UserDaoTest extends BaseDaoTest {
         User user = new User();
         user.setUsername("username3");
         user.setPassword("password3");
+        user.setSalt("salt".getBytes());
         user.setAccountEnabled(true);
-        user.setAccountExpired(false);
-        user.setAccountLocked(false);
         user.setCredentialsExpired(false);
         user.setArchived(false);
         user.setUuid(UUID.randomUUID());
@@ -154,10 +152,10 @@ public class UserDaoTest extends BaseDaoTest {
 
         Date modTime = user.getModifiedTime();
 
-        Assert.assertTrue(!user.isAccountLocked());
-        user.setAccountLocked(true);
+        Assert.assertTrue(!user.isCredentialsExpired());
+        user.setCredentialsExpired(true);
         user = userDao.update(user);
-        Assert.assertTrue(user.isAccountLocked());
+        Assert.assertTrue(user.isCredentialsExpired());
 
         Assert.assertTrue(modTime.before(user.getModifiedTime()));
     }
