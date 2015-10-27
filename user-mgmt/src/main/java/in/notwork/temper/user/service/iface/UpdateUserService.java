@@ -9,7 +9,7 @@ import in.notwork.temper.user.service.model.User;
  */
 public interface UpdateUserService {
 
-    User update(User user);
+    User updatePassword(User user);
 
     void delete(User user);
 

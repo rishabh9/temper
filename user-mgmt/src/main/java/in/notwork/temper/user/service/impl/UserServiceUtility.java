@@ -4,6 +4,8 @@ import in.notwork.temper.user.service.model.User;
 import org.apache.shiro.crypto.RandomNumberGenerator;
 import org.apache.shiro.crypto.hash.Sha256Hash;
 import org.apache.shiro.util.ByteSource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -13,10 +15,17 @@ import org.springframework.stereotype.Component;
 @Component("userUtility")
 public class UserServiceUtility {
 
+    /**
+     * Logger
+     */
+    private static final Logger LOG = LoggerFactory.getLogger(UserServiceUtility.class);
+
     @Autowired
     private RandomNumberGenerator randomNumberGenerator;
 
     public in.notwork.temper.user.db.dbo.objects.User encryptToDBO(User user) {
+        LOG.debug("Encrypting password using random salt for {}", user.getUsername());
+
         String plainTextPassword = user.getPassword();
 
         // We'll use a Random Number Generator to generate salts.
