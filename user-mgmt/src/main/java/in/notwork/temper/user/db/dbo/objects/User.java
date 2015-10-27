@@ -19,8 +19,7 @@ public class User extends PersistentObject {
 
     private String username;
     private String password;
-    private boolean accountExpired;
-    private boolean accountLocked;
+    private byte[] salt;
     private boolean credentialsExpired;
     private boolean accountEnabled;
     private UUID uuid;
@@ -36,15 +35,11 @@ public class User extends PersistentObject {
         return password;
     }
 
-    @Column(name = "account_expired", nullable = false)
-    public boolean isAccountExpired() {
-        return accountExpired;
+    @Column(name = "salt", nullable = false, length = 60)
+    public byte[] getSalt() {
+        return salt;
     }
 
-    @Column(name = "account_locked", nullable = false)
-    public boolean isAccountLocked() {
-        return accountLocked;
-    }
 
     @Column(name = "credentials_expired", nullable = false)
     public boolean isCredentialsExpired() {
@@ -77,16 +72,12 @@ public class User extends PersistentObject {
         this.username = username;
     }
 
+    public void setSalt(byte[] salt) {
+        this.salt = salt;
+    }
+
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public void setAccountExpired(boolean accountExpired) {
-        this.accountExpired = accountExpired;
-    }
-
-    public void setAccountLocked(boolean accountLocked) {
-        this.accountLocked = accountLocked;
     }
 
     public void setCredentialsExpired(boolean credentialsExpired) {
@@ -111,9 +102,7 @@ public class User extends PersistentObject {
         if (!(o instanceof User)) return false;
         if (!super.equals(o)) return false;
         User user = (User) o;
-        return Objects.equals(accountExpired, user.accountExpired) &&
-                Objects.equals(accountLocked, user.accountLocked) &&
-                Objects.equals(credentialsExpired, user.credentialsExpired) &&
+        return Objects.equals(credentialsExpired, user.credentialsExpired) &&
                 Objects.equals(accountEnabled, user.accountEnabled) &&
                 Objects.equals(username, user.username) &&
                 Objects.equals(password, user.password) &&
@@ -122,7 +111,7 @@ public class User extends PersistentObject {
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), username, password, accountExpired, accountLocked,
+        return Objects.hash(super.hashCode(), username, password,
                 credentialsExpired, accountEnabled, uuid);
     }
 }
