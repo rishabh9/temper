@@ -2,6 +2,23 @@
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
+    <!-- The Secure Random Number Generator used to generate Salt -->
     <bean id="randomNumberGenerator" class="org.apache.shiro.crypto.SecureRandomNumberGenerator"/>
+
+    <!-- Define the realm you want to use to connect to your back-end security datasource: -->
+    <bean id="myRealm" class="org.apache.shiro.realm.jdbc.JdbcRealm">
+        <property name="dataSource" ref="dataSource" />
+        <property name="saltStyle" value="COLUMN" />
+        <property name="authenticationQuery" value="select password, salt from user where username = ?" />
+        <property name="userRolesQuery" value="" />
+        <property name="permissionsQuery" value="" />
+        <property name="permissionsLookupEnabled" value="true" />
+    </bean>
+
+    <bean id="securityManager" class="org.apache.shiro.mgt.DefaultSecurityManager">
+        <!-- Single realm app.  If you have multiple realms, use the 'realms' property instead. -->
+        <property name="realm" ref="myRealm"/>
+    </bean>
+
 
 </beans>
