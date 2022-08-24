@@ -27,7 +27,7 @@
         <junit.version>4.12</junit.version>
         <spring.version>4.2.2.RELEASE</spring.version>
         <hibernate.version>4.3.11.Final</hibernate.version>
-        <mysql.version>5.1.34</mysql.version>
+        <mysql.version>8.0.28</mysql.version>
         <dbsetup.version>1.6.0</dbsetup.version>
         <shiro.version>1.2.4</shiro.version>
     </properties>
